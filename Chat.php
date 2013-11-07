@@ -30,9 +30,12 @@ class Chat
 
     /** @var Dbus */
     protected $_dbus;
-    
+
     /** @var DbusProxy */
     protected $_dbusProxy;
+
+    /** @var string */
+    protected $_error;
 
     public function __construct($type = Dbus::BUS_SESSION)
     {
@@ -46,15 +49,20 @@ class Chat
      * Create chat and return chat ID
      *
      * @param  array $contacts skype names
-     * @return string
+     * @return string|bool
      */
     public function create(array $contacts)
     {
-        $this->_dbusProxy->Invoke("NAME " .  self::APPLICATION_NAME);
-        $this->_dbusProxy->Invoke("PROTOCOL 6");
-        $rval = $this->_dbusProxy->Invoke("CHAT CREATE " . implode(',', $contacts));
-        $data = explode(' ', $rval);
-        $id = $data[1];
+        try {
+            $this->_dbusProxy->Invoke("NAME " .  self::APPLICATION_NAME);
+            $this->_dbusProxy->Invoke("PROTOCOL 6");
+            $rval = $this->_dbusProxy->Invoke("CHAT CREATE " . implode(',', $contacts));
+            $data = explode(' ', $rval);
+            $id = $data[1];
+        } catch (Exception $e) {
+            $id = false;
+            $this->_error = $e->getMessage();
+        }
 
         return $id;
     }
@@ -66,5 +74,15 @@ class Chat
     public function sendMessage($id, $message)
     {
         $this->_dbusProxy->Invoke("CHATMESSAGE " . $id. " " . $message);
+    }
+
+    /**
+     * Returns last error message
+     *
+     * @return string
+     */
+    public function getError()
+    {
+        return $this->_error();
     }
 }
