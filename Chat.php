@@ -1,10 +1,10 @@
 <?php
 
 namespace Skypebot;
-use Dbus;
+use \Dbus;
 
 /**
- * Chat class container 
+ * Chat class container.
  *
  * @package     R-Infiniti
  * @version     $Id$
@@ -12,10 +12,11 @@ use Dbus;
  * @filesource
  */
 /**
- * Chat. No errors handling, nothing really to see here.
+ * This class uses PHP-D-Bus bindings by Derick Rethans.
  *
  * @package     R-Infiniti
  * @author      Daniel Jeznach <daniel.jeznach@smtsoftware.com>
+ * @link        http://pecl.php.net/package/DBus
  */
 class Chat 
 {
@@ -37,8 +38,15 @@ class Chat
     /** @var string */
     protected $_error;
 
+    /**
+     * @param  int $type one of Dbus::BUS_SESSION or Dbus::BUS_SYSTEM
+     */
     public function __construct($type = Dbus::BUS_SESSION)
     {
+        if (! extension_loaded('dbus')) {
+            throw new \RuntimeException('DBUS extension not found. This class requires php-dbus extension to be loaded.');
+        }
+
         $this->_dbus = new Dbus($type);
         $this->_dbusProxy = $this
             ->_dbus
@@ -59,7 +67,7 @@ class Chat
             $rval = $this->_dbusProxy->Invoke("CHAT CREATE " . implode(',', $contacts));
             $data = explode(' ', $rval);
             $id = $data[1];
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $id = false;
             $this->_error = $e->getMessage();
         }
@@ -83,6 +91,6 @@ class Chat
      */
     public function getError()
     {
-        return $this->_error();
+        return $this->_error;
     }
 }
