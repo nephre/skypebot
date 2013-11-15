@@ -13,10 +13,12 @@ use \Dbus;
  */
 /**
  * This class uses PHP-D-Bus bindings by Derick Rethans.
+ * For example presentation, see link
  *
  * @package     R-Infiniti
  * @author      Daniel Jeznach <daniel.jeznach@smtsoftware.com>
  * @link        http://pecl.php.net/package/DBus
+ * @link        http://derickrethans.nl/talks/dbus-ipc10s.pdf
  */
 class Chat 
 {
@@ -76,6 +78,8 @@ class Chat
     }
 
     /**
+     * Send chat message to chat ID (received from create())
+     *
      * @param  string $id      Chat ID
      * @param  string $message Chat message
      */
