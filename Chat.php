@@ -42,6 +42,7 @@ class Chat
 
     /**
      * @param  int $type one of Dbus::BUS_SESSION or Dbus::BUS_SYSTEM
+     * @throws \RuntimeException
      */
     public function __construct($type = Dbus::BUS_SESSION)
     {
