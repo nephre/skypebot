@@ -1,0 +1,17 @@
+{
+    "name": "nephre/skypebot",
+    "description": "Skype spammer",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "I am me",
+            "email": "email@niem.am"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "require": {
+        "fabpot/goutte": "dev-master"
+    }
+}
