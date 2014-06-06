@@ -1,16 +1,16 @@
 <?php
 /**
- * {descripton}
- *
  * @package     R-Infiniti
  * @author      Daniel Jeznach <daniel.jeznach@smtsoftware.com>
  */
 
-use Harvester\Wypok;
-
 require_once __DIR__ . '/vendor/autoload.php';
 
-$wypok = new Wypok;
-$suchars = $wypok->getSucharArray();
+$api = new \Wypok\Suchar;
 
-var_dump($suchars);
+if ($suchar = $api->getSuchar()) {
+    echo $suchar;
+} else {
+    fprintf(STDERR, "%s\n", $api->getApi()->getError());
+}
+
