@@ -1,17 +1,17 @@
 {
     "name": "nephre/skypebot",
-    "description": "Skype spammer",
+    "description": "Skype DBUS API interface",
     "minimum-stability": "dev",
     "authors": [
         {
-            "name": "I am me",
-            "email": "email@niem.am"
+            "name": "Daniel Jeznach",
+            "email": "djeznach@gmail.com"
         }
     ],
     "autoload": {
         "psr-0": { "": "src/" }
     },
-    "require": {
+    "suggested": {
         "fabpot/goutte": "dev-master"
     }
 }
