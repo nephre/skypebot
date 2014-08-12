@@ -1,6 +1,7 @@
 <?php
 /**
- * This one sends wypok suchar to chat by given id
+ * This one sends wypok suchar to chat by given id.
+ * Use activechats.php to get currently open chat window
  */
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -20,5 +21,6 @@ $wypokSuchar = new Suchar;
 $suchar = $wypokSuchar->getSuchar();
 
 if ($suchar) {
+    echo $suchar;
     $chat->sendMessage($id, $suchar);
 }

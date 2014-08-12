@@ -5,14 +5,14 @@ namespace Wypok;
 /**
  * Suchar class container 
  *
- * @package     R-Infiniti
+ * @package     Skypebot
  * @version     $Id$
  * @copyright   2014 SMT Software S.A.
  * @filesource
  */
 /**
- * @package     R-Infiniti
- * @author      Daniel Jeznach <daniel.jeznach@smtsoftware.com>
+ * @package     Skypebot
+ * @author      Daniel Jeznach <djeznach@gmail.com>
  */
 class Suchar 
 {
@@ -54,7 +54,7 @@ class Suchar
     /**
      * Getter for $api
      *
-     * @author Daniel Jeznach <daniel.jeznach@smtsoftware.com>
+     * @author Daniel Jeznach <djeznach@gmail.com>
      * @access public
      *
      * @return \Wypok\Api

@@ -1,87 +1,109 @@
 <?php
 
 namespace Skypebot;
-use \Dbus;
+
+use Dbus;
 
 /**
  * Chat class container.
  *
- * @package     R-Infiniti
- * @version     $Id$
- * @copyright   2013 SMT Software S.A.
+ * @package     Skypebot
  * @filesource
  */
 /**
  * This class uses PHP-D-Bus bindings by Derick Rethans.
- * For example presentation, see link
+ * For example presentation, see link.
+ * Please examine README.md as well
  *
- * @package     R-Infiniti
- * @author      Daniel Jeznach <daniel.jeznach@smtsoftware.com>
+ * @package     Skypebot
+ * @author      Daniel Jeznach <djeznach@gmail.com>
  * @link        http://pecl.php.net/package/DBus
  * @link        http://derickrethans.nl/talks/dbus-ipc10s.pdf
+ *
+ * @method DbusProxy Dbus->createProxy() Dbus->createProxy(string $connectionName, string $object, string $interface) Initialize DBus connection
  */
-class Chat 
+class Chat
 {
+    use ErrorHandlerInstaller;
+
     /**@#
      * Some names
      */
-    const APPLICATION_NAME      = 'phpskype';
-    const PROTOCOL_VERSION      = 6;
+    /** During first run, application will register to skype with this name */
+    const APPLICATION_NAME = 'nephre/skypebot';
 
-    const DBUS_CONNECTION_NAME  = 'com.Skype.API';
-    const DBUS_OBJECT           = '/com/Skype';
-    const DBUS_INTERFACE        = 'com.Skype.API';
+    /** A field to experiment. I would not go  */
+    const PROTOCOL_VERSION = 6;
 
-    const CHAT_PROP_NAME        = 'NAME';
-    const CHAT_PROP_TIMESTAMP   = 'TIMESTAMP';
-    const CHAT_PROP_TOPIC       = 'TOPIC';
-    const CHAT_PROP_FRIENDLYNAME= 'FRIENDLYNAME';
+    /** DBUS connection name */
+    const DBUS_CONNECTION_NAME = 'com.Skype.API';
+
+    /** DBUS object */
+    const DBUS_OBJECT = '/com/Skype';
+
+    /** API interface name */
+    const DBUS_INTERFACE = 'com.Skype.API';
+
+    /**@#
+     * Properties from documentation
+     */
+    const CHAT_PROP_NAME = 'NAME';
+    const CHAT_PROP_TIMESTAMP = 'TIMESTAMP';
+    const CHAT_PROP_TOPIC = 'TOPIC';
+    const CHAT_PROP_FRIENDLYNAME = 'FRIENDLYNAME';
 
     /** @var Dbus */
-    protected $_dbus;
+    protected $dbus;
 
     /** @var DbusProxy */
-    protected $_dbusProxy;
+    protected $dbusProxy;
 
     /** @var string */
-    protected $_error;
+    protected $error;
 
     /** @var bool */
-    protected $_initialized = false;
+    protected $initialized = false;
 
     /**
      * @param  int $type one of Dbus::BUS_SESSION or Dbus::BUS_SYSTEM
-     * @throws \RuntimeException
+     *
+     * @throws Exception
      */
     public function __construct($type = Dbus::BUS_SESSION)
     {
-        if (! extension_loaded('dbus')) {
-            throw new \RuntimeException('DBUS extension not found. This class requires php-dbus extension to be loaded.');
+        $this->setErrorHandlers();
+
+        if (!extension_loaded('dbus')) {
+            throw new Exception('DBUS extension not found. This application requires php-dbus extension to be loaded.', Error::ERR_MISSING_DBUS_EXTENSION);
         }
 
-        $this->_dbus = new Dbus($type);
-        $this->_dbusProxy = $this
-            ->_dbus
-            ->createProxy(self::DBUS_CONNECTION_NAME, self::DBUS_OBJECT, self::DBUS_INTERFACE);
+        $this->dbus      = new Dbus($type);
+        $this->dbusProxy = $this
+            ->dbus
+            ->createProxy(
+                self::DBUS_CONNECTION_NAME,
+                self::DBUS_OBJECT,
+                self::DBUS_INTERFACE
+            );
     }
 
     /**
      * Get dbus proxy
      *
-     * @author Daniel Jeznach <daniel.jeznach@smtsoftware.com>
+     * @author Daniel Jeznach <djeznach@gmail.com>
      * @access public
      *
-     * @return \Skypebot\DbusProxy
+     * @return DbusProxy
      */
     public function getProxy()
     {
-        return $this->_dbusProxy;
+        return $this->dbusProxy;
     }
 
     /**
      * Search active chats, returns IDs of chats
      *
-     * @author Daniel Jeznach <daniel.jeznach@smtsoftware.com>
+     * @author Daniel Jeznach <djeznach@gmail.com>
      * @access public
      *
      * @return array
@@ -92,35 +114,10 @@ class Chat
 
         try {
             $this->initConnection();
-            $rval = $this->_dbusProxy->Invoke("SEARCH ACTIVECHATS");
-            $ids = explode(',', substr($rval, 6));
+            $rval = $this->dbusProxy->Invoke("SEARCH ACTIVECHATS");
+            $ids  = explode(',', substr($rval, 6));
         } catch (\Exception $e) {
-            $this->_error = $e->getMessage();
-        }
-
-        return $ids;
-    }
-
-    /**
-     * Get chat property
-     *
-     * @author Daniel Jeznach <daniel.jeznach@smtsoftware.com>
-     * @access public
-     *
-     * @param  string $id
-     * @param  string $property
-     * @return string ?
-     */
-    public function getChatProperty($id, $property)
-    {
-        try {
-            $this->initConnection();
-
-            $cmd = sprintf("GET CHAT %s %s", $id, $property);
-            $rval = $this->_dbusProxy->Invoke($cmd);
-            $ids = $rval;
-        } catch (\Exception $e) {
-            $this->_error = $e->getMessage();
+            $this->error = $e->getMessage();
         }
 
         return $ids;
@@ -131,32 +128,61 @@ class Chat
      */
     public function initConnection()
     {
-        if ($this->_initialized) {
+        if ($this->initialized) {
             return;
         }
 
-        $this->_dbusProxy->Invoke("NAME " .  self::APPLICATION_NAME);
-        $this->_dbusProxy->Invoke("PROTOCOL " . self::PROTOCOL_VERSION);
+        $this->dbusProxy->Invoke("NAME " . self::APPLICATION_NAME);
+        $this->dbusProxy->Invoke("PROTOCOL " . self::PROTOCOL_VERSION);
 
-        $this->_initialized = true;
+        $this->initialized = true;
+    }
+
+    /**
+     * Get chat property
+     *
+     * @author Daniel Jeznach <djeznach@gmail.com>
+     * @access public
+     *
+     * @param  string $id
+     * @param  string $property
+     *
+     * @return string ?
+     */
+    public function getChatProperty($id, $property)
+    {
+        try {
+            $this->initConnection();
+
+            $cmd  = sprintf("GET CHAT %s %s", $id, $property);
+            $rval = $this->dbusProxy->Invoke($cmd);
+            $ids  = $rval;
+        } catch (\Exception $e) {
+            $this->error = $e->getMessage();
+        }
+
+        return $ids;
     }
 
     /**
      * Create chat and return chat ID
      *
      * @param  array $contacts skype names
+     *
      * @return string|bool
      */
     public function create(array $contacts)
     {
         try {
             $this->initConnection();
-            $rval = $this->_dbusProxy->Invoke("CHAT CREATE " . implode(',', $contacts));
+            $rval = $this->dbusProxy->Invoke(
+                "CHAT CREATE " . implode(',', $contacts)
+            );
             $data = explode(' ', $rval);
-            $id = $data[1];
+            $id   = $data[1];
         } catch (\Exception $e) {
-            $id = false;
-            $this->_error = $e->getMessage();
+            $id           = false;
+            $this->error = $e->getMessage();
         }
 
         return $id;
@@ -171,7 +197,14 @@ class Chat
     public function sendMessage($id, $message)
     {
         $this->initConnection();
-        $this->_dbusProxy->Invoke("CHATMESSAGE " . $id. " " . $message);
+        $response = $this->dbusProxy->Invoke(
+            "CHATMESSAGE " . $id . " " . $message
+        );
+
+        if (strpos($response, 'ERROR') === 0) {
+            $this->error = $response;
+            trigger_error($response, E_USER_ERROR);
+        }
     }
 
     /**
@@ -181,6 +214,6 @@ class Chat
      */
     public function getError()
     {
-        return $this->_error;
+        return $this->error;
     }
 }

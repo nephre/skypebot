@@ -5,19 +5,23 @@ namespace Wypok;
 /**
  * Api class container
  *
- * @package     R-Infiniti
+ * @package     Skypebot
  * @version     $Id$
  * @copyright   2014 SMT Software S.A.
  * @filesource
  */
+use Skypebot\ErrorHandlerInstaller;
+
 /**
- * {descripton}
+ * Wypok API
  *
- * @package     R-Infiniti
- * @author      Daniel Jeznach <daniel.jeznach@smtsoftware.com>
+ * @package     Skypebot
+ * @author      Daniel Jeznach <djeznach@gmail.com>
  */
 class Api
 {
+    use ErrorHandlerInstaller;
+
     protected $userAgent = 'WykopAPI';
     protected $apiDomain = 'http://a.wykop.pl/';
     protected $key = null;

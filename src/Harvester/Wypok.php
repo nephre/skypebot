@@ -7,8 +7,8 @@ use Symfony\Component\DomCrawler\Crawler;
 /**
  * get #suchar from wypok mirko
  *
- * @package     R-Infiniti
- * @author      Daniel Jeznach <daniel.jeznach@smtsoftware.com>
+ * @package     Skypebot
+ * @author      Daniel Jeznach <djeznach@gmail.com>
  */
 class Wypok extends AbstractHarvester
 {

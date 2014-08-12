@@ -1,37 +1,28 @@
 <?php
 /**
- * This example sends message to skype test call. On my Linux, Skype v4.X does
- * not allow to send messages to echo123 contact.
+ * This one sends console message to chat by given id.
+ * Use activechats.php to get currently open chat window.
+ * php send.php '<chat id>'
  */
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Skypebot\Chat;
-use Wypok\Suchar;
-
-$echo123 = [
-    'echo123',
-];
+use Skypebot\Error;
 
 $chat = new Chat;
 
-die();
-
-var_dump($chat->getProxy()->getActive());
-exit;
-//$id = $chat->create($theReds);
-$id = $chat->connect('m3H7BbVlZNj1p4HqMXoK-V-t7-6EnMqUkoL-k-4X6KEu1jueyXwI0CnGUZ4xbrE1YH93N6QAj-kGTrl7fj2Pe825OSTTQw1WwrbbySE4O5nzKLQpnCesG54mdiMYZiqgIglnkV2i-bSJfUyC09pMEmnnOloXbNkXfZ1BFXsldngUan6tuPHOkw7cVtDSdxnp0TuPIJPxeb9FJNXLRyBuzOQ', $echo123);
-echo $id;
-
-if (false === $id) {
-    printf("Error:\n%s\n", $chat->getError());
-    exit(1);
+if (empty($argv[1])) {
+    trigger_error(Error::ERR_NO_CHAT_ID, E_USER_ERROR);
 }
 
-$wypokSuchar = new Suchar;
-$suchar = $wypokSuchar->getSuchar();
+$messageArray = array_slice($argv, 2);
 
-if ($suchar) {
-    $chat->sendMessage($id, $suchar);
+if (empty($messageArray) || ! is_array($messageArray)) {
+    trigger_error(Error::ERR_NO_CHAT_MESSAGE, E_USER_ERROR);
 }
 
+$id = $argv[1];
+
+$message = implode(' ', $messageArray);
+$chat->sendMessage($id, $message);

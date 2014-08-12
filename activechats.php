@@ -1,9 +1,9 @@
 <?php
 /**
- * {descripton}
+ * Print chat ID of currently open chat window
  *
- * @package     skypebot
- * @author      Daniel Jeznach <daniel.jeznach@smtsoftware.com>
+ * @package     Skypebot
+ * @author      Daniel Jeznach <djeznach@gmail.com>
  */
 
 require_once __DIR__ . '/vendor/autoload.php';

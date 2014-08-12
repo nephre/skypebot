@@ -2,6 +2,7 @@
     "name": "nephre/skypebot",
     "description": "Skype DBUS API interface",
     "minimum-stability": "dev",
+    "license": "MIT",
     "authors": [
         {
             "name": "Daniel Jeznach",
@@ -11,7 +12,11 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
-    "suggested": {
-        "fabpot/goutte": "dev-master"
+    "require": {
+        "php": ">=5.4",
+        "ext-dbus": "dev-master"
+    },
+    "suggest": {
+        "fabpot/goutte": "For fetching jokes/entries from wykop.pl, using their API"
     }
 }
