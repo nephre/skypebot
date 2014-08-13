@@ -22,7 +22,7 @@ use Dbus;
  * @link        http://pecl.php.net/package/DBus
  * @link        http://derickrethans.nl/talks/dbus-ipc10s.pdf
  *
- * @method DbusProxy Dbus->createProxy() Dbus->createProxy(string $connectionName, string $object, string $interface) Initialize DBus connection
+ * @method DbusProxy Dbus\Dbus::createProxy() Dbus::createProxy(string $connectionName, string $object, string $interface) Initialize DBus connection
  */
 class Chat
 {

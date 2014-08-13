@@ -58,15 +58,15 @@ class Error
     }
 
     /**
-     * @param int|string $errno If string given to trigger_error, it will be displayed
-     * @param string     $errstr
+     * @param int        $errno
+     * @param int|string $errstr If string given to trigger_error, it will be displayed
      * @param string     $errfile
      * @param int        $errline
      * @param array      $errcontext
      */
     public function error($errno, $errstr, $errfile, $errline, $errcontext)
     {
-        if (is_integer($errstr) && array_key_exists($errstr, $this->errors)) {
+        if (is_numeric($errstr) && array_key_exists($errstr, $this->errors)) {
             $message = $this->errors[$errstr];
 
             if (array_key_exists($errstr, $this->errorParams)) {
@@ -83,16 +83,18 @@ class Error
             $message = $errstr;
         }
 
+        $exitCode = is_numeric($errstr) ? (int)$errstr : $errno;
+
         fprintf(
             STDERR,
             "An error has occured in %s:%d\n%s\nExiting with code %d\n",
             $errfile,
             $errline,
             $message,
-            $errno
+            $exitCode
         );
 
-        exit($errno);
+        exit($exitCode);
     }
 
     /**

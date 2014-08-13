@@ -1,12 +1,18 @@
 {
     "name": "nephre/skypebot",
     "description": "Skype DBUS API interface",
+    "version": "0.0.2",
+    "homepage": "https://github.com/nephre/skypebot",
     "minimum-stability": "dev",
+    "prefer-stable": true,
+    "type": "project",
+    "time": "2014-08-13",
     "license": "MIT",
     "authors": [
         {
             "name": "Daniel Jeznach",
-            "email": "djeznach@gmail.com"
+            "email": "djeznach@gmail.com",
+            "role": "Developer"
         }
     ],
     "autoload": {
@@ -17,6 +23,7 @@
         "ext-dbus": "dev-master"
     },
     "suggest": {
-        "fabpot/goutte": "For fetching jokes/entries from wykop.pl, using their API"
+        "fabpot/goutte": "For fetching jokes/entries from wykop.pl, using their API",
+        "phpdocumentor/phpdocumentor": "For pretty API documentation"
     }
 }
