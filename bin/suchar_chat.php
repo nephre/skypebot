@@ -1,10 +1,15 @@
 <?php
+
 /**
  * This one sends wypok suchar to chat by given id.
  * Use activechats.php to get currently open chat window
+ *
+ * @package     Skypebot
+ * @subpackage  Engine
+ * @author      Daniel Jeznach <djeznach@gmail.com>
  */
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use Skypebot\Chat;
 use Wypok\Suchar;

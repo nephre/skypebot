@@ -1,6 +1,16 @@
 {
     "name"             : "nephre/skypebot",
     "description"      : "Skype DBUS API interface",
+    "version"           : "1.0.0",
+    "bin"               : [
+        "bin/activechats.php",
+        "bin/send.php",
+        "bin/suchar.php",
+        "bin/suchar_char.php"
+    ],
+    "config": {
+        "bin-dir": "bin"
+    },
     "keywords"         : ["skype", "dbus", "nephre", "bot", "php"],
     "homepage"         : "https://github.com/nephre/skypebot",
     "minimum-stability": "stable",

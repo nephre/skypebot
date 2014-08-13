@@ -10,7 +10,7 @@
  * @author      Daniel Jeznach <djeznach@gmail.com>
  */
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use Skypebot\Chat;
 use Skypebot\Error;

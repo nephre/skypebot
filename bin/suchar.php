@@ -1,10 +1,14 @@
 <?php
+
 /**
+ * This scripts dumps joke from wykop.pl to stdout
+ *
  * @package     Skypebot
- * @author      Daniel Jeznach <daniel.jeznach@smtsoftware.com>
+ * @subpackage  Engine
+ * @author      Daniel Jeznach <djeznach@gmail.com>
  */
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use Skypebot\Chat;
 
