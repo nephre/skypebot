@@ -1,11 +1,9 @@
 {
     "name": "nephre/skypebot",
     "description": "Skype DBUS API interface",
-    "version": "0.0.3",
     "keywords": ["skype", "dbus", "nephre", "bot", "php"],
     "homepage": "https://github.com/nephre/skypebot",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
+    "minimum-stability": "stable",
     "type": "project",
     "time": "2014-08-13",
     "license": "MIT",
@@ -26,7 +24,6 @@
         "nephre/php-dbus": "0.1.1"
     },
     "provide": {
-        "skypebot": "self.version",
         "ext-dbus": "0.1.1"
     },
     "repositories": [
