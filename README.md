@@ -9,12 +9,15 @@ This "project" uses Skype D-Bus API, which is, unfortunately, already deprecated
 Despite of above fact, DBUS API can be still used in version 4.X of Skype, which is latest available on Linux. Probably that is why Skype DBUS documentation is no longer officially published. I had to dig through the web to find it, PDF document is [here](http://kirils.org/skype/stuff/pdf/2013/SkypeSDK.pdf). See [credits](#credits) section as well.
 
 Basic usage is very simple, just open your skype client, and open chat window with someone. Then, run from console:
+
 ```php activechats.php```
 
 You should return chat ID of currently active chat window, something like:
+
 ```CHAT #myskypeid/$friends.skype.id;cc5250703ad99efb FRIENDLYNAME My Friend Name```
 
 To send message, just type:
+
 ```php send.php '#myskypeid/$friends.skype.id;cc5250703ad99efb' Your message here```
 
 Check your skype window, you've just sent message to your contact.
@@ -24,6 +27,7 @@ News
 * It can now list existing chats and connect to any picked one.
 * Error handling
 * Generated docs: use phpdoc/phpdocumentor, with following command:
+
 ```phpdoc -t docs -f "src/Skypebot/*.php" -e dbus --title SkypeBot --sourcecode -p --parseprivate --validate```
 
 TODO
