@@ -20,7 +20,7 @@
     },
     "require": {
         "php": ">=5.4",
-        "ext-dbus": "dev-master"
+        "ext-dbus": "0.1.0"
     },
     "suggest": {
         "fabpot/goutte": "For fetching jokes/entries from wykop.pl, using their API",
