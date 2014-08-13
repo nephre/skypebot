@@ -2,25 +2,27 @@
 
 namespace Harvester;
 
-use Skypebot\ErrorHandlerInstaller;
 use Goutte\Client;
+use Skypebot\Error;
+use Skypebot\ErrorHandlerInstallerTrait;
+use Skypebot\Exception;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
- * AbstractHarvester class container 
+ * AbstractHarvester class container
  *
  * @package     Skypebot
- * @version     $Id$
- * @copyright   2014 SMT Software S.A.
+ * @subpackage  Harvester
  * @filesource
  */
 /**
  * @package     Skypebot
+ * @subpackage  Harvester
  * @author      Daniel Jeznach <djeznach@gmail.com>
  */
 abstract class AbstractHarvester
 {
-    use ErrorHandlerInstaller;
+    use ErrorHandlerInstallerTrait;
 
     public function __construct()
     {
@@ -33,18 +35,19 @@ abstract class AbstractHarvester
 
         foreach ($dependencies as $class) {
             if (!class_exists($class, false)) {
-                trigger_error("Unable to load class: $class", E_USER_ERROR);
+                throw new Exception("Unable to load dependency class: $class", Error::ERR_MISSING_CLASS);
             }
         }
     }
 
     /**
      * @param  $url
+     *
      * @return Crawler
      */
     public function getPage($url)
     {
-        $client = new Client;
+        $client  = new Client;
         $crawler = $client->request('GET', $url);
 
         return $crawler;

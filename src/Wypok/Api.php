@@ -2,47 +2,66 @@
 
 namespace Wypok;
 
+use Skypebot\ErrorHandlerInstallerTrait;
+
 /**
  * Api class container
  *
  * @package     Skypebot
- * @version     $Id$
- * @copyright   2014 SMT Software S.A.
+ * @subpackage  Wypok
  * @filesource
  */
-use Skypebot\ErrorHandlerInstaller;
-
 /**
  * Wypok API
  *
  * @package     Skypebot
+ * @subpackage  Wypok
+ * @author      Piotr Kasperski<piotr.kasperski@smtsoftware.com>
  * @author      Daniel Jeznach <djeznach@gmail.com>
  */
 class Api
 {
-    use ErrorHandlerInstaller;
+    use ErrorHandlerInstallerTrait;
 
+    /** @var string */
     protected $userAgent = 'WykopAPI';
+
+    /** @var string */
     protected $apiDomain = 'http://a.wykop.pl/';
+
+    /** @var null|string */
     protected $key = null;
+
+    /** @var null|string */
     protected $secret = null;
+
+    /** @var null|string */
     protected $userKey = null;
+
+    /**@var string */
     protected $format = 'json';
+
+    /** @var null|string */
     protected $output = 'clear';
+
+    /** @var bool */
     protected $isValid;
+
+    /** @var string */
     protected $error;
 
     /**
-     * Kontruktor
+     * Konstruktor
      *
-     * @param string $key - appkey
-     * @param string $secret - appsecret
-     * @param string $output - output format
-     *
+     * @param string $key    appkey
+     * @param string $secret appsecret
+     * @param string $output output format
      */
     public function __construct($key, $secret, $output = null)
     {
-        $this->key = $key;
+        $this->setErrorHandlers();
+
+        $this->key    = $key;
         $this->secret = $secret;
 
         if ($output !== null) {
@@ -53,17 +72,17 @@ class Api
     /**
      * Wykonanie requestu do API
      *
-     * @param string $action - zasób, np. "links/upcoming"
-     * @param array  $postData - post
-     * @param array  $filesData - pliki, np array('embed' => "@plik.jpg;type=image/jpeg")
+     * @param string $action    zasób, np. "links/upcoming"
+     * @param array  $postData  post
+     * @param array  $filesData pliki, np array('embed' => "@plik.jpg;type=image/jpeg")
      *
-     * @return array - odpowiedź API
+     * @return array odpowiedź API
      */
-
     public function doRequest($action, $postData = null, $filesData = null)
     {
         $url = $this->apiDomain . $action .= (strpos($action, ',') ? ','
-                    : '/') . $this->getKey() . $this->getFormat() . $this->getOutput() . $this->getUserKey();
+                    : '/') . $this->getKey() . $this->getFormat(
+                ) . $this->getOutput() . $this->getUserKey();
 
         if ($postData === null) {
             $result = $this->curl($url);
@@ -83,12 +102,11 @@ class Api
     /**
      * Czy zapytanie było poprawne
      *
-     * @return bool - poprawna odpowiedź
+     * @return bool poprawna odpowiedź
      */
-
     protected function getKey()
     {
-        if (! empty($this->key)) {
+        if (!empty($this->key)) {
             return 'appkey/' . $this->key . '/';
         }
     }
@@ -96,11 +114,11 @@ class Api
     /**
      * Błąd ostatniego zapytania
      *
-     * @return string - komunikat błędu
+     * @return string komunikat błędu
      */
     protected function getFormat()
     {
-        if (! empty($this->format)) {
+        if (!empty($this->format)) {
             return 'format/' . $this->format . '/';
         }
     }
@@ -108,11 +126,11 @@ class Api
     /**
      * Ustawienie klucza użytkownika - kolejne requesty będą wykonywane jako wybrany użytkownik
      *
-     * @param string $userKey - klucz użytkownika
+     * @return string
      */
     protected function getOutput()
     {
-        if (! empty($this->output)) {
+        if (!empty($this->output)) {
             return 'output/' . $this->output . '/';
         }
     }
@@ -120,12 +138,11 @@ class Api
     /**
      * Generuje link do Wykop Connect
      *
-     * @param string $redirectUrl - opcjonalny adres przekierowania po zalogowaniu
      * @return string - link do Wykop Connect
      */
     protected function getUserKey()
     {
-        if (! empty($this->userKey)) {
+        if (!empty($this->userKey)) {
             return 'userkey/' . $this->userKey . '/';
         }
     }
@@ -133,7 +150,10 @@ class Api
     /**
      * Dekoduje dane connecta
      *
-     * @return array - tablica z danymi connecta (appkey, login, token) - wykorzystywane później do logowania
+     * @param  string $url
+     * @param  array  $post
+     *
+     * @return array  tablica z danymi connecta (appkey, login, token) - wykorzystywane później do logowania
      */
     protected function curl($url, $post = null)
     {
@@ -147,7 +167,12 @@ class Api
             CURLOPT_CONNECTTIMEOUT => 15,
             CURLOPT_TIMEOUT        => 15,
             CURLOPT_MAXREDIRS      => 10,
-            CURLOPT_HTTPHEADER     => array('apisign:' . $this->sign($url, $post))
+            CURLOPT_HTTPHEADER     => array(
+                'apisign:' . $this->sign(
+                    $url,
+                    $post
+                )
+            )
         );
 
         if ($post !== null) {
@@ -155,7 +180,7 @@ class Api
                 ? http_build_query($post, 'f_', '&')
                 : '';
 
-            $options[CURLOPT_POST] = 1;
+            $options[CURLOPT_POST]       = 1;
             $options[CURLOPT_POSTFIELDS] = $post;
         }
 
@@ -163,14 +188,14 @@ class Api
         curl_setopt_array($ch, $options);
 
         $content = curl_exec($ch);
-        $err = curl_errno($ch);
-        $errmsg = curl_error($ch);
-        $result = curl_getinfo($ch);
+        $err     = curl_errno($ch);
+        $errmsg  = curl_error($ch);
+        $result  = curl_getinfo($ch);
 
         curl_close($ch);
 
-        $result['errno'] = $err;
-        $result['errmsg'] = $errmsg;
+        $result['errno']   = $err;
+        $result['errmsg']  = $errmsg;
         $result['content'] = $content;
 
         return $result;
@@ -183,9 +208,11 @@ class Api
         }
 
         return
-            md5($this->secret . $url . ($post === null
-            ? ''
-            : implode(',', $post)));
+            md5(
+                $this->secret . $url . ($post === null
+                    ? ''
+                    : implode(',', $post))
+            );
     }
 
     protected function checkIsValid(&$result)
@@ -198,9 +225,9 @@ class Api
         } else {
             $json = json_decode($result['content'], true);
 
-            if (! empty($json['error'])) {
+            if (!empty($json['error'])) {
                 $this->isValid = false;
-                $this->error = $json['error']['message'];
+                $this->error   = $json['error']['message'];
             } else {
                 $this->isValid = true;
             }
@@ -236,8 +263,9 @@ class Api
 
     public function handleConnectData()
     {
-        if (! empty($_GET['connectData'])) {
+        if (!empty($_GET['connectData'])) {
             $data = base64_decode($_GET['connectData']);
+
             return json_decode($data, true);
         }
     }

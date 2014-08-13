@@ -6,12 +6,14 @@ namespace Skypebot;
  * Error class container
  *
  * @package     Skypebot
+ * @subpackage  Engine
  * @filesource
  */
 /**
  * Error handler
  *
  * @package     Skypebot
+ * @subpackage  Engine
  * @author      Daniel Jeznach <djeznach@gmail.com>
  */
 class Error

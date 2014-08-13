@@ -3,21 +3,24 @@
 namespace Wypok;
 
 /**
- * Suchar class container 
+ * Suchar class container
  *
  * @package     Skypebot
- * @version     $Id$
- * @copyright   2014 SMT Software S.A.
+ * @subpackage  Wypok
  * @filesource
  */
 /**
  * @package     Skypebot
+ * @subpackage  Wypok
  * @author      Daniel Jeznach <djeznach@gmail.com>
  */
-class Suchar 
+class Suchar
 {
-    const APPLICATION_KEY = '92O81mptol';
-    const APPLICATION_SECRET = '8sWx79tHBT';
+    /**@#
+     * Constants
+     */
+    const APPLICATION_KEY       = '92O81mptol';
+    const APPLICATION_SECRET    = '8sWx79tHBT';
 
     /** @var Api */
     protected $api;
@@ -30,9 +33,17 @@ class Suchar
         $this->api = new Api(self::APPLICATION_KEY, self::APPLICATION_SECRET);
     }
 
+    /**
+     * Returns joke, or false in case of API error
+     *
+     * @return bool|string
+     */
     public function getSuchar()
     {
-        $result = $this->api->doRequest('search/entries', array('q' => '#suchar'));
+        $result = $this->api->doRequest(
+            'search/entries',
+            array('q' => '#suchar')
+        );
 
         if ($this->api->isValid()) {
             $random = array_rand($result, 1);
@@ -40,13 +51,14 @@ class Suchar
 
             $suchar = trim(preg_replace('/#(.+)/', '', $suchar));
 
-            if (! empty($suchar)) {
+            if (!empty($suchar)) {
                 return $suchar . PHP_EOL;
             } else {
                 return false;
             }
         } else {
             printf("%s\n", $this->api->getError());
+
             return false;
         }
     }
@@ -57,7 +69,7 @@ class Suchar
      * @author Daniel Jeznach <djeznach@gmail.com>
      * @access public
      *
-     * @return \Wypok\Api
+     * @return Api
      */
     public function getApi()
     {

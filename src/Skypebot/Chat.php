@@ -8,6 +8,7 @@ use Dbus;
  * Chat class container.
  *
  * @package     Skypebot
+ * @subpackage  Engine
  * @filesource
  */
 /**
@@ -16,6 +17,7 @@ use Dbus;
  * Please examine README.md as well
  *
  * @package     Skypebot
+ * @subpackage  Engine
  * @author      Daniel Jeznach <djeznach@gmail.com>
  * @link        http://pecl.php.net/package/DBus
  * @link        http://derickrethans.nl/talks/dbus-ipc10s.pdf
@@ -24,7 +26,7 @@ use Dbus;
  */
 class Chat
 {
-    use ErrorHandlerInstaller;
+    use ErrorHandlerInstallerTrait;
 
     /**@#
      * Some names

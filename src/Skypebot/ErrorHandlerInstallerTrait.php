@@ -3,18 +3,21 @@
 namespace Skypebot;
 
 /**
- * ErrorHandlerInstaller trait container
+ * ErrorHandlerInstallerTrait trait container
  *
  * @package     Skypebot
+ * @subpackage  Engine
  * @filesource
  */
 /**
  * Installs error and exception handlers
  *
  * @package     Skypebot
+ * @subpackage  Engine
  * @author      Daniel Jeznach <djeznach@gmail.com>
  */
-trait ErrorHandlerInstaller {
+trait ErrorHandlerInstallerTrait {
+    /** @var Error */
     protected $errorHandler;
 
     public function setErrorHandlers()

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     R-Infiniti
+ * @package     Skypebot
  * @author      Daniel Jeznach <daniel.jeznach@smtsoftware.com>
  */
 

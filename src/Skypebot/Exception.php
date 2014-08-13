@@ -6,12 +6,14 @@ namespace Skypebot;
  * Exception class container
  *
  * @package     Skypebot
+ * @subpackage  Engine
  * @filesource
  */
 /**
  * Skypebot exception
  *
  * @package     Skypebot
+ * @subpackage  Engine
  * @author      Daniel Jeznach <djeznach@gmail.com>
  */
 class Exception extends \Exception

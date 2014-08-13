@@ -1,8 +1,13 @@
 <?php
 /**
  * This one sends console message to chat by given id.
- * Use activechats.php to get currently open chat window.
- * php send.php '<chat id>'
+ *
+ * Use activechats.php to get currently open chat window. Then:
+ * php send.php '<chat id>' your message
+ *
+ * @package     Skypebot
+ * @subpackage  Engine
+ * @author      Daniel Jeznach <djeznach@gmail.com>
  */
 
 require_once __DIR__ . '/vendor/autoload.php';

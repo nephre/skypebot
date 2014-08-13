@@ -3,6 +3,7 @@
  * Print chat ID of currently open chat window
  *
  * @package     Skypebot
+ * @subpackage  Engine
  * @author      Daniel Jeznach <djeznach@gmail.com>
  */
 
