@@ -10,15 +10,21 @@ Despite of above fact, DBUS API can be still used in version 4.X of Skype, which
 
 Basic usage is very simple, just open your skype client, and open chat window with someone. Then, run from console:
 
-```php activechats.php```
+```bash
+php activechats.php
+```
 
 You should return chat ID of currently active chat window, something like:
 
-```CHAT #myskypeid/$friends.skype.id;cc5250703ad99efb FRIENDLYNAME My Friend Name```
+```bash
+CHAT #myskypeid/$friends.skype.id;cc5250703ad99efb FRIENDLYNAME My Friend Name
+```
 
 To send message, just type:
 
-```php send.php '#myskypeid/$friends.skype.id;cc5250703ad99efb' Your message here```
+```bash
+php send.php '#myskypeid/$friends.skype.id;cc5250703ad99efb' Your message here
+```
 
 Check your skype window, you've just sent message to your contact.
 
@@ -26,9 +32,11 @@ News
 ----
 * It can now list existing chats and connect to any picked one.
 * Error handling
-* Generated docs: use phpdoc/phpdocumentor, with following command:
+* Generated docs: use `phpdoc/phpdocumentor`, with following command:
 
-```phpdoc -t docs -f "src/Skypebot/*.php" -e dbus --title SkypeBot --sourcecode -p --parseprivate --validate```
+```bash
+phpdoc -t docs -f "src/Skypebot/*.php" -e dbus --title SkypeBot --sourcecode -p --parseprivate --validate
+```
 
 * Stub class for some code completion
 
@@ -52,8 +60,8 @@ Requirements
 * Linux OS (*-BSD probably also will be supported, as long as DBUS and Skype works there. No guarantee yet
 * Skype for Linux (version 4.X).
 * php >= 5.4
-* [php-dbus extension](http://pecl.php.net/package/DBus)
-* [composer](https://getcomposer.org/download/) - used for autoloading, mainly. Some subscripts also utilise fabpot/goutte, but it's not mandatory to communicate with Skype
+* [php-dbus extension](https://github.com/nephre/php-dbus) After some problems fetching it from PEAR and SVN, I've created unofficial repository for this extension. Will be installed by composer automatically
+* [composer](https://getcomposer.org/download/). Some subscripts also utilise fabpot/goutte, but it's not mandatory to communicate with Skype
 
 Credits
 -------

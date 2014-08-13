@@ -2,6 +2,7 @@
     "name": "nephre/skypebot",
     "description": "Skype DBUS API interface",
     "version": "0.0.3",
+    "keywords":  ["skype", "dbus", "nephre", "bot", "php"],
     "homepage": "https://github.com/nephre/skypebot",
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -18,22 +19,9 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "ext-dbus",
-                "version": "0.1.1",
-                "dist": {
-                    "url": "http://pecl.php.net/get/dbus-0.1.1.tgz",
-                    "type": "tgz"
-                }
-            }
-        }
-    ],
     "require": {
         "php": ">=5.4",
-        "ext-dbus": "0.1.1"
+        "nephre/php-dbus": "0.1.1"
     },
     "suggest": {
         "fabpot/goutte": "For fetching jokes/entries from wykop.pl, using their API",
