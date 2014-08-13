@@ -31,7 +31,7 @@ class Chat
      * Some names
      */
     /** During first run, application will register to skype with this name */
-    const APPLICATION_NAME = 'nephre/skypebot';
+    const APPLICATION_NAME = 'nephre_skypebot';
 
     /** A field to experiment. I would not go  */
     const PROTOCOL_VERSION = 6;
@@ -78,7 +78,7 @@ class Chat
             throw new Exception('DBUS extension not found. This application requires php-dbus extension to be loaded.', Error::ERR_MISSING_DBUS_EXTENSION);
         }
 
-        $this->dbus      = new Dbus($type);
+        $this->dbus      = new Dbus($type, true);
         $this->dbusProxy = $this
             ->dbus
             ->createProxy(
@@ -119,6 +119,7 @@ class Chat
             $ids  = explode(',', substr($rval, 6));
         } catch (\Exception $e) {
             $this->error = $e->getMessage();
+            $ids = [];
         }
 
         return $ids;
@@ -160,6 +161,7 @@ class Chat
             $ids  = $rval;
         } catch (\Exception $e) {
             $this->error = $e->getMessage();
+            $ids = null;
         }
 
         return $ids;

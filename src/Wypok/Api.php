@@ -16,7 +16,8 @@ use Skypebot\ErrorHandlerInstallerTrait;
  *
  * @package     Skypebot
  * @subpackage  Wypok
- * @author      Piotr Kasperski<piotr.kasperski@smtsoftware.com>
+ *
+ * @author      Piotr Kasperski <piotr.kasperski@smtsoftware.com>
  * @author      Daniel Jeznach <djeznach@gmail.com>
  */
 class Api

@@ -41,7 +41,7 @@ abstract class AbstractHarvester
     }
 
     /**
-     * @param  $url
+     * @param  string $url
      *
      * @return Crawler
      */

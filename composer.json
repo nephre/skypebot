@@ -1,40 +1,40 @@
 {
-    "name": "nephre/skypebot",
-    "description": "Skype DBUS API interface",
-    "keywords": ["skype", "dbus", "nephre", "bot", "php"],
-    "homepage": "https://github.com/nephre/skypebot",
+    "name"             : "nephre/skypebot",
+    "description"      : "Skype DBUS API interface",
+    "keywords"         : ["skype", "dbus", "nephre", "bot", "php"],
+    "homepage"         : "https://github.com/nephre/skypebot",
     "minimum-stability": "stable",
-    "type": "project",
-    "time": "2014-08-13",
-    "license": "MIT",
-    "authors": [
+    "type"             : "project",
+    "time"             : "2014-08-13",
+    "license"          : "MIT",
+    "authors"          : [
         {
-            "name": "Daniel Jeznach",
+            "name" : "Daniel Jeznach",
             "email": "djeznach@gmail.com",
-            "role": "Developer"
+            "role" : "Developer"
         }
     ],
-    "autoload": {
+    "autoload"         : {
         "psr-0": {
             "": "src/"
         }
     },
-    "require": {
-        "php": ">=5.4",
+    "require"          : {
+        "php"            : ">=5.4",
         "nephre/php-dbus": "0.1.1"
     },
-    "provide": {
+    "provide"          : {
         "ext-dbus": "0.1.1"
     },
-    "repositories": [
+    "repositories"     : [
         {
-            "type": "pear",
-            "url": "http://pear.phpdoc.org",
+            "type"        : "pear",
+            "url"         : "http://pear.phpdoc.org",
             "vendor-alias": "phpdoc"
         }
     ],
-    "suggest": {
-        "fabpot/goutte": "For fetching jokes/entries from wykop.pl, using their API",
+    "suggest"          : {
+        "fabpot/goutte"       : "For fetching jokes/entries from wykop.pl, using their API",
         "phpdoc/phpDocumentor": "For pretty API documentation"
     }
 }

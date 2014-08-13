@@ -53,7 +53,8 @@ I do not currently plan implementing voice calls handling. Only chats support. I
 
 Bugs
 ----
-Not known, but features amount is also small :)
+* When chat title contains regional (UTF-8?) characters, chat title returned is empty, with error message:
+ERROR 105 Invalid chat name
 
 Requirements
 ------------
