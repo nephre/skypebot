@@ -30,10 +30,13 @@ News
 
 ```phpdoc -t docs -f "src/Skypebot/*.php" -e dbus --title SkypeBot --sourcecode -p --parseprivate --validate```
 
+* Stub class for some code completion
+
 TODO
 ----
-* Create chat contacts as objects (and objects collection for multiple contacts
+* Create chat contacts as objects (and objects collection for multiple contacts)
 * Prepare PHAR archive with parameters
+* Finish stub class for code completion
 * more...
 
 Limitations

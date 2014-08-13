@@ -2,7 +2,8 @@
 
 namespace Skypebot;
 
-use Dbus;
+use Skypebot\Dbus as Dbus;
+use Skypebot\DbusObject as DbusObject;
 
 /**
  * Chat class container.
@@ -21,8 +22,6 @@ use Dbus;
  * @author      Daniel Jeznach <djeznach@gmail.com>
  * @link        http://pecl.php.net/package/DBus
  * @link        http://derickrethans.nl/talks/dbus-ipc10s.pdf
- *
- * @method DbusProxy Dbus\Dbus::createProxy() Dbus::createProxy(string $connectionName, string $object, string $interface) Initialize DBus connection
  */
 class Chat
 {
@@ -57,7 +56,7 @@ class Chat
     /** @var Dbus */
     protected $dbus;
 
-    /** @var DbusProxy */
+    /** @var DbusObject*/
     protected $dbusProxy;
 
     /** @var string */
@@ -95,7 +94,7 @@ class Chat
      * @author Daniel Jeznach <djeznach@gmail.com>
      * @access public
      *
-     * @return DbusProxy
+     * @return DbusObject
      */
     public function getProxy()
     {
@@ -149,7 +148,7 @@ class Chat
      * @param  string $id
      * @param  string $property
      *
-     * @return string ?
+     * @return string|mixed
      */
     public function getChatProperty($id, $property)
     {
