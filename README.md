@@ -61,7 +61,7 @@ Requirements
 * Linux OS (*-BSD probably also will be supported, as long as DBUS and Skype works there. No guarantee yet
 * Skype for Linux (version 4.X).
 * php >= 5.4
-* [php-dbus extension](https://github.com/nephre/php-dbus) After some problems fetching it from PEAR and SVN, I've created unofficial repository for this extension. Will be installed by composer automatically
+* [php-dbus extension](https://github.com/nephre/php-dbus) After some problems fetching it from PEAR and SVN, I've created unofficial repository for this extension.
 * [composer](https://getcomposer.org/download/). Some subscripts also utilise fabpot/goutte, but it's not mandatory to communicate with Skype
 
 Credits
