@@ -31,19 +31,8 @@
         }
     },
     "require"          : {
-        "php"            : ">=5.4",
-        "nephre/php-dbus": "0.1.1"
+        "php"            : ">=5.4"
     },
-    "provide"          : {
-        "ext-dbus": "0.1.1"
-    },
-    "repositories"     : [
-        {
-            "type"        : "pear",
-            "url"         : "http://pear.phpdoc.org",
-            "vendor-alias": "phpdoc"
-        }
-    ],
     "suggest"          : {
         "fabpot/goutte"       : "For fetching jokes/entries from wykop.pl, using their API",
         "phpdoc/phpDocumentor": "For pretty API documentation"
